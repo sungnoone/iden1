@@ -35,29 +35,65 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <script type="text/javascript" src="js/jquery-2.1.0.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <!--<script type="text/javascript" src="js/common.js"></script>-->
         <script type="text/javascript" src="js/index.js"></script>
         <title>APP Identify</title>
     </head>
-    <body>
+    <body onload="show_id();">
+
         <div data-role="page" id="page_main" style="margin-top: 20px">
             <div data-role="header">
                 <h1>App驗證測試</h1>
             </div>
             <div data-role="content">
                 <div id="btn_group">
-                    <a href="#" data-role="button" data-inline="false" onclick="show_id();">ID</a>
-                    <a href="#" data-role="button" data-inline="false" onclick="validation_by_text();">明碼驗證</a>
+                    <a href="#" id="btn_showid" data-role="button" data-inline="false" class="ui-disabled" onclick="show_idfa()">ID</a>
+                    <a href="#" id="btn_validate" data-role="button" data-inline="false" class="ui-disabled" onclick="validation_by_text()">明碼驗證</a>
+                    <a href="#" id="btn_register" data-role="button" data-inline="false" class="ui-disabled" onclick="app_register_validate_with_pass_word()">明碼驗證(附加密語)</a>
                 </div>
             </div>
             <div id="message"></div>
         </div>
+
         <div data-role="page" id="page_login" style="margin-top: 20px">
+            <div data-role="header">
+                <h1>帳號資訊</h1>
+            </div>
+            <div data-role="content">
+                <form id="form_login">
+                    <div data-role="fieldcontain">
+                        <label for="login_username">使用者名稱</label>
+                        <input id="login_username" type="text" />
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="login_password">密碼</label>
+                        <input id="login_password" type="text" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div data-role="page" id="page_pass" style="margin-top: 20px">
             <div data-role="header">
                 <h1>安全性驗證</h1>
             </div>
             <div data-role="content">
-
+                <label for="app_pass_word">通關密語</label>
+                <input id="app_pass_word" type="text" data-mini="false"/>
+                <br />
+                <a href="#" data-role="button" onclick="send_pass_word()">傳送密語</a>
             </div>
+            <div id="pass_message"></div>
+        </div>
+
+        <div data-role="page" id="page_no_pass" style="margin-top: 20px">
+            <div data-role="header">
+                <h1>警告：未通過安全性驗證</h1>
+            </div>
+            <div data-role="content">
+                <p>您並未通過安全性驗證，可能導致資料查詢結果不正確，請退出程式，重新驗證！</p>
+            </div>
+            <div id="nopass_message"></div>
         </div>
     </body>
 </html>
