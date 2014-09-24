@@ -28,17 +28,16 @@ function fileSystemFail(error) {
 
 /*=============== document events ===================*/
 
+//App備妥時
 document.addEventListener("deviceready",function(){
-    //取得身份
     //$.mobile.pageContainer.pagecontainer("change","#page_login",{reload:true});
-
+    alert("document ready!!");
     //驗證
     window.plugins.AppleAdvertising.getIdentifiers(
         function(identifiers) {
             IDFA = identifiers.idfa;
             IDFV = identifiers.idfv;
             checkUser();
-            //validation_by_text();
         },
         function() {
             alert("取得本機資訊錯誤");
@@ -46,45 +45,38 @@ document.addEventListener("deviceready",function(){
     );
 },false);
 
-
+//App從背景取回時
 document.addEventListener("resume",function(){
-/*    window.plugins.AppleAdvertising.getIdentifiers(
-        function(identifiers) {
-            IDFA = identifiers.idfa;
-            IDFV = identifiers.idfv;
-            validation_by_text();
-        },
-        function() {
-            alert("取得本機資訊錯誤");
-        }
-    );*/
 },false);
 
-
+//登入頁面載入時
 $(document).on("pageinit", "#page_login", function(){
     loadUserAccount();
 });
 
 /*========================== 驗證 ====================================*/
 
-{/* start 驗證*/
+
 
 //查詢ID，設定ID變數值
-    function show_idfa(){
-        alert(IDFA);
-    }
+function show_idfa(){
+    alert(IDFA);
+}
 
+//取得帳號資訊之後驗證
 function checkUser(){
     //$.mobile.pageContainer.pagecontainer("change","#page_login",{reload:false});
-    alert("Before Load file");
+    //alert("Before Load file");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
         fileSystem.root.getFile(FILE_USER_INFO, {create: true, exclusive: false}, function(fileEntry){
             fileEntry.file(function(file){
                 var reader = new FileReader();
-                alert(reader.toString());
+                //alert(reader.toString());
                 reader.onloadend = function(evt){
                     var s = evt.target.result;
+                    //如果資訊檔為空
                     if(s==null || s==""){
+                        //跳至輸入畫面
                         $.mobile.pageContainer.pagecontainer("change","#page_login",{reload:true});
                         return;
                     }
@@ -92,7 +84,7 @@ function checkUser(){
                     USERNAME = obj_json.username.toLowerCase();
                     PASSWORD = obj_json.password;
                     if(USERNAME=="" || USERNAME==null){
-                        alert("load login");
+                        //alert("load login");
                         $.mobile.pageContainer.pagecontainer("change","#page_login",{reload:true});
                     }else{
                         alert(USERNAME+" "+PASSWORD);
@@ -101,7 +93,7 @@ function checkUser(){
                     }
                 };
                 reader.readAsText(file);
-                alert("After Load file");
+                //alert("After Load file");
             }, fileSystemFail);
         }, fileSystemFail);
     }, fileSystemFail);
@@ -233,42 +225,6 @@ function checkUser(){
         });
     }
 
-    /*//明碼驗證需附密語(idfa)
-     function app_register_validate_with_pass_word(){
-     var Valid_Info = JSON.stringify({
-     "Username":USERNAME,
-     "Password":PASSWORD,
-     "Idfa":IDFA,
-     "App_Name":APP_NAME,
-     "Sys_Pass_Word":"2712"
-     });
-     $.ajax({
-     type:"POST",
-     url:RESTFUL_HOST+RESTFUL_URL_APP_VALIDATE_2,
-     data:Valid_Info,
-     contentType:"application/json",
-     dataType:"text",
-     success: function(data, status, jqXHR){
-     validate_result = data;
-     alert(validate_result);
-     },
-     error: function(jqXHR, status){
-     validate_result = "fail";
-     alert(validate_result);
-     }
-     });
-
-     }*/
-
-}/* end 驗證 */
-
-
-
-/*============================= 帳號 =================================*/
-
-//
-
-
 //reset account
 function restAccount(){
     $.mobile.pageContainer.pagecontainer("change","#page_login",{reload:true});
@@ -284,38 +240,49 @@ function saveUserAccount(){
             fileEntry.createWriter(function(writer){
                 writer.onwriteend = function(evt) {
                     alert("儲存完成!");
+                    reAuth();//重新驗證
                 };
                 writer.write('{"username":"'+username.toLowerCase()+'","password":"'+password+'"}');//結果寫入
                 //alert("After saving file");
             },fileSystemFail);
         }, fileSystemFail);
     }, fileSystemFail);
-    //帳號儲存完畢，一律順便更新帳號資訊相關變數資訊
-    //其他功能在執行時，就不要重複執行讀取帳號檔案的動作。
-    // 帳號資訊檔案載入
+}
 
-    //alert("Before Load file");
+//更新帳號資訊後返回主頁重新驗證
+function reAuth(){
+    alert("Before reAuth");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
         fileSystem.root.getFile(FILE_USER_INFO, {create: true, exclusive: false}, function(fileEntry){
             fileEntry.file(function(file){
                 var reader = new FileReader();
                 reader.onloadend = function(evt){
                     var s = evt.target.result;
+                    //如果資訊檔為空
+                    if(s==null || s==""){
+                        alert("沒有取得正確的帳號資訊");
+                        return;
+                    }
                     var obj_json = $.parseJSON(s);
+                    //更新帳號資訊
                     USERNAME = obj_json.username.toLowerCase();
                     PASSWORD = obj_json.password;
-                    //alert(USERNAME+"  "+PASSWORD);
-                    $("#login_username").val(USERNAME);
-                    $("#login_password").val(PASSWORD);
+                    alert(USERNAME);
+                    //返回主頁
+                    $.mobile.pageContainer.pagecontainer("change","#page_main",{reload:true});
+                    $("#page_main a").removeClass("ui-disabled");
+                    $("#page_main a").addClass("ui-disabled");
+                    validation_by_text();
                 };
                 reader.readAsText(file);
                 //alert("After Load file");
             }, fileSystemFail);
         }, fileSystemFail);
     }, fileSystemFail);
-
 }
 
+
+//更新輸入頁面及帳號資訊
 function loadUserAccount(){
     //alert("Before Load file");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
