@@ -8,7 +8,8 @@ var IDFA = "";
 var IDFV = "";
 var pass_result = "";
 
-var RESTFUL_HOST = "http://192.168.1.229:8088";
+var RESTFUL_HOST = "http://192.168.1.232:8088";
+//var RESTFUL_HOST = "http://192.168.1.229:8088";
 var RESTFUL_URL_APP_VALIDATE_1 = "/msrv2/security/app_validation_request/";//IDFA驗證服務位址
 var RESTFUL_URL_APP_VALIDATE_2 = "/msrv2/security/app_register_request/";//附加密語IDFA驗證服務位址
 var RESTFUL_URL_APP_VALIDATE_3 = "/msrv2/security/app_reset_pass_word/";//重置驗證碼
@@ -31,7 +32,7 @@ function fileSystemFail(error) {
 //App備妥時
 document.addEventListener("deviceready",function(){
     //$.mobile.pageContainer.pagecontainer("change","#page_login",{reload:true});
-    alert("document ready!!");
+    //alert("document ready!!");
     //驗證
     window.plugins.AppleAdvertising.getIdentifiers(
         function(identifiers) {
@@ -251,7 +252,7 @@ function saveUserAccount(){
 
 //更新帳號資訊後返回主頁重新驗證
 function reAuth(){
-    alert("Before reAuth");
+    //alert("Before reAuth");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
         fileSystem.root.getFile(FILE_USER_INFO, {create: true, exclusive: false}, function(fileEntry){
             fileEntry.file(function(file){
@@ -267,7 +268,7 @@ function reAuth(){
                     //更新帳號資訊
                     USERNAME = obj_json.username.toLowerCase();
                     PASSWORD = obj_json.password;
-                    alert(USERNAME);
+                    alert(USERNAME + PASSWORD);
                     //返回主頁
                     $.mobile.pageContainer.pagecontainer("change","#page_main",{reload:true});
                     $("#page_main a").removeClass("ui-disabled");

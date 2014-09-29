@@ -530,7 +530,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = iden1;
-				PROVISIONING_PROFILE = "336f4270-c56c-4f7e-a098-d07a75e112f4";
+				PROVISIONING_PROFILE = "35529561-a3b9-4d02-a5a0-5d11ca33669a";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -540,7 +540,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: YANG David (Z57N6HDSW5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HAN LIN PUBLISHING CO.,LTD.";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iden1/iden1-Prefix.pch";
@@ -563,7 +563,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = iden1;
-				PROVISIONING_PROFILE = "336f4270-c56c-4f7e-a098-d07a75e112f4";
+				PROVISIONING_PROFILE = "35529561-a3b9-4d02-a5a0-5d11ca33669a";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -609,7 +609,7 @@
 					"\"$(BUILT_PRODUCTS_DIR)/libCordova.a\"",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "336f4270-c56c-4f7e-a098-d07a75e112f4";
+				PROVISIONING_PROFILE = "35529561-a3b9-4d02-a5a0-5d11ca33669a";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -626,8 +626,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: YANG David (Z57N6HDSW5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: YANG David (Z57N6HDSW5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HAN LIN PUBLISHING CO.,LTD.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HAN LIN PUBLISHING CO.,LTD.";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
@@ -656,7 +656,7 @@
 					"\"$(BUILT_PRODUCTS_DIR)/libCordova.a\"",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "336f4270-c56c-4f7e-a098-d07a75e112f4";
+				PROVISIONING_PROFILE = "35529561-a3b9-4d02-a5a0-5d11ca33669a";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
